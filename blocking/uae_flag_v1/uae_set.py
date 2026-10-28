@@ -243,13 +243,16 @@ def build_figure(name, rgb, pose, loc=(0, 0, 0), yaw_deg=0.0, px=PX_FIGURE):
     return ob, {k: mw @ v for k, v in j.items()}
 
 
-def sleeve_patch(name, rgb, joints, side='l', along=0.30, size=(0.085, 0.055)):
-    """Flag patch on the upper sleeve. Returns (object, centre, outward normal, front direction)."""
+def sleeve_patch(name, rgb, joints, side='l', along=0.30, size=(0.085, 0.055), facing=None):
+    """Flag patch on the upper sleeve, on the side facing `facing` (default: out from the body).
+    Returns (object, centre, outward normal, front direction)."""
     sh, el = joints['shoulder_' + side], joints['elbow_' + side]
     down = (el - sh).normalized()
-    body_out = (sh - joints['neck'])
-    body_out.z = 0
-    n = (body_out - down * body_out.dot(down)).normalized()
+    if facing is None:
+        facing = sh - joints['neck']
+        facing.z = 0
+    facing = Vector(facing)
+    n = (facing - down * facing.dot(down)).normalized()
     front = down.cross(n).normalized()
     if front.y < 0:               # keep 'front' pointing the way the soldier faces (+Y here)
         front = -front
@@ -263,6 +266,37 @@ def sleeve_patch(name, rgb, joints, side='l', along=0.30, size=(0.085, 0.055)):
 
 
 # ---------------------------------------------------------------- set pieces
+
+# Salute composition locked by the director: frame 1 of the salute camera.
+SALUTE_LENS = 35.0
+SALUTE_CAM = (3.6, -4.6, 1.0)
+SALUTE_AIM = (-1.4, 3.0, 2.4)
+
+
+def build_salute_set():
+    """Row of four saluting soldiers at Y = 0 facing +Y, flagpole, palms. Returns {name: joints}."""
+    ground()
+    joints = {}
+    for name, col, x in (('soldier_D', COL_D, -1.5), ('soldier_C', COL_C, -0.5),
+                         ('soldier_B', COL_B, 0.5), ('soldier_A', COL_A, 1.5)):
+        joints[name] = build_figure(name, col, POSE_SALUTE, loc=(x, 0.0, 0.0))[1]
+    # Flagpole + flag (flag is a flat board; it flies toward +X so the camera sees it broad).
+    pole = (-3.0, 9.0)
+    bm = bmesh.new()
+    add_capsule(bm, (pole[0], pole[1], 0.0), (pole[0], pole[1], 7.0), 0.06, segs=10)
+    add_ellipsoid(bm, (pole[0], pole[1], 7.1), (0.1, 0.1, 0.1), segs=10, rings=6)
+    outline(_new_object('flagpole', bm), COL_SET, PX_SET)
+    bm = bmesh.new()
+    add_box(bm, (pole[0] + 0.95, pole[1], 6.45), (1.8, 0.03, 0.9))
+    outline(_new_object('flag', bm), COL_SET, PX_SET)
+    # Date palms behind the flag, seeded so every take is the same.
+    rng = random.Random(SEED)
+    bm = bmesh.new()
+    for k in range(9):
+        palm(bm, (-14.0 + k * 3.6 + rng.uniform(-1, 1), 22.0 + rng.uniform(-3, 5), 0.0),
+             rng.uniform(7.0, 10.0), rng.uniform(0, 6), rng.uniform(0, 360), rng)
+    outline(_new_object('palms', bm), COL_SET, PX_SET)
+    return joints
 
 def ground(size=400.0, name='ground'):
     bm = bmesh.new()
@@ -313,8 +347,9 @@ def key_rig(rig, frame, pos, aim):
     rig.keyframe_insert('rotation_euler', frame=frame)
 
 
-def handheld(cam, amp_m=0.015, amp_deg=0.3, period_s=1.5, seed=SEED):
-    """Gentle handheld = NOISE modifiers on the camera's own channels (strength = 4 x amplitude)."""
+def handheld(cam, amp_m=0.015, amp_deg=0.3, period_s=1.5, seed=SEED, start=None, end=None, blend_in=0):
+    """Gentle handheld = NOISE modifiers on the camera's own channels (strength = 4 x amplitude).
+    start/end/blend_in restrict it to part of the shot (e.g. off during a macro)."""
     cam.keyframe_insert('location', frame=1)
     cam.keyframe_insert('rotation_euler', frame=1)
     for i, fc in enumerate(fcurves_of(cam)):
@@ -323,6 +358,11 @@ def handheld(cam, amp_m=0.015, amp_deg=0.3, period_s=1.5, seed=SEED):
         mod.phase = seed * 3.1 + i * 17.3
         amp = amp_m if fc.data_path == 'location' else math.radians(amp_deg)
         mod.strength = 4.0 * amp
+        if start is not None:
+            mod.use_restricted_range = True
+            mod.frame_start = start
+            mod.frame_end = end if end is not None else bpy.context.scene.frame_end
+            mod.blend_in = blend_in
 
 
 def save_blend(script_file, tag, version=1):

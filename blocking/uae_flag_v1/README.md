@@ -6,8 +6,9 @@ All shots are 16:9, 1280×720, **25 fps** (matching the live-action crayon plate
 
 | File | Shot | Length | Lens | Camera |
 |---|---|---|---|---|
-| `blocking_t1_patch_pullback_v1.blend` | T1 bridge: red crayon → flag patch → pull-back | 3.0 s / 75 f | 100 mm | f1–40: low raking macro holding on the red hoist bar, 6 mm upward drift. f40–75: continuous pull-back with a slight rise to a medium close-up of the patch and shoulder. Slider, no handheld. |
-| `blocking_t1_salute_v1.blend` | T1 world: four soldiers salute the flag (hard cut after the bridge) | 4.0 s / 100 f | 35 mm | From behind, three-quarter right, low (1.0 m), slow push-in of about 0.9 m, gentle handheld |
+| **`blocking_t1_patch_to_salute_v1.blend`** | **T1 as one shot: red crayon → flag patch on soldier A's sleeve → pull straight back out to the salute. Replaces the bridge + hard cut.** | 6.0 s / 150 f | 100 → 35 mm | f1–40: macro filled by the red hoist bar, drifting up 6 mm along the bar (matches the crayon move). f40–110: one continuous pull-back straight out of the sleeve along the line to the salute camera, lens widening to 35 mm, landing exactly on the locked salute frame. f110–150: holds that frame; gentle handheld blends in. No cut. |
+| `blocking_t1_patch_pullback_v1.blend` | Superseded by the one-shot. T1 bridge: red crayon → flag patch → pull-back | 3.0 s / 75 f | 100 mm | f1–40: low raking macro holding on the red hoist bar, 6 mm upward drift. f40–75: continuous pull-back with a slight rise to a medium close-up of the patch and shoulder. Slider, no handheld. |
+| `blocking_t1_salute_v1.blend` | T1 world: four soldiers salute the flag. Frame 1 is the composition the director locked. | 4.0 s / 100 f | 35 mm | From behind, three-quarter right, low (1.0 m), slow push-in of about 0.9 m, gentle handheld |
 | `blocking_t2_field_v1.blend` | T2 world: green crayon rows → crop rows | 4.0 s / 100 f | 35 mm | 0.30 m above the soil, looking across the rows, horizon 8% from the top edge, slow 0.6 m forward glide. Slider. |
 
 ## Colour key
@@ -25,6 +26,7 @@ The patch takes soldier A's colour. On screen in the salute shot, left to right:
 ## Run
 
 ```
+blender -b -P blocking_t1_patch_to_salute_v1.py
 blender -b -P blocking_t1_patch_pullback_v1.py
 blender -b -P blocking_t1_salute_v1.py
 blender -b -P blocking_t2_field_v1.py
@@ -33,6 +35,11 @@ blender -b -P blocking_t2_field_v1.py
 Each script rebuilds its `.blend` next to itself. `uae_set.py` is the shared module (set pieces, mannequins, poses, camera rig, outline look). The scripts were tested on Blender 4.5 LTS and 5.2. The shipped `.blend` files were saved from 4.5 and open in 5.x.
 
 ## Decisions and deviations
+
+- **Salute composition is locked** (`SALUTE_CAM` / `SALUTE_AIM` / 35 mm in `uae_set.py`, frame 1 of the salute shot). The one-shot lands on it exactly at f110; checked numerically, head positions match to three decimals.
+- **One-shot patch: soldier A's RIGHT upper sleeve (the saluting arm), on the side facing the camera.** From behind-right his left arm is hidden by his body. The rule "left sleeve, verify against a reference" still applies to the old bridge file only.
+- **One-shot lens: 100 → 35 mm during the pull-back**, eased together with the dolly. The move only widens; it is never a dolly-zoom. The red bar fills the whole frame from f1 to f40 (checked numerically).
+- **One-shot handheld only from f110** (blended in over 1 s): the macro and the pull-back stay smooth.
 
 - **25 fps instead of 24**, to match the 4K 25p crayon footage the bridges cut against.
 - **Patch on the LEFT upper sleeve, hoist (red bar) toward the front.** This is not verified yet: swap `side='l'` in the patch script once there is a real uniform reference. The red bar is a quarter of the patch width, following the UAE flag proportion.
