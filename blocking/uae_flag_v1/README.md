@@ -6,7 +6,8 @@ All shots are 16:9, 1280×720, **25 fps** (matching the live-action crayon plate
 
 | File | Shot | Length | Lens | Camera |
 |---|---|---|---|---|
-| **`blocking_t1_patch_to_salute_v1.blend`** | **T1 as one shot: red crayon → flag patch on soldier A's sleeve → pull straight back out to the salute. Replaces the bridge + hard cut.** | 6.0 s / 150 f | 100 → 35 mm | f1–40: macro filled by the red hoist bar, drifting up 6 mm along the bar (matches the crayon move). f40–110: one continuous pull-back straight out of the sleeve along the line to the salute camera, lens widening to 35 mm, landing exactly on the locked salute frame. f110–150: holds that frame; gentle handheld blends in. No cut. |
+| **`blocking_t1_patch_to_salute_v2.blend`** | **T1 one shot, current version. Soldiers start at attention, arms by their sides. Opens on the director's patch reference frame, then pulls back while all four raise the salute.** | 6.0 s / 150 f | 100 → 35 mm | f1–40: grazing macro just above soldier A's right sleeve patch, looking down along the hanging arm. The black stitched border runs down frame left, red fills about 90% of the width and recedes to the top, and the green stripe edge enters at top right. The camera drifts up 6 mm with the red. f40–110: continuous pull-back and tilt-up, lens widening to 35 mm, landing exactly on the locked salute frame. **f70–88: all four raise the salute together during the pull-back.** f110–150: holds the salute frame; gentle handheld blends in. |
+| `blocking_t1_patch_to_salute_v1.blend` | Superseded by v2. T1 as one shot: red crayon → flag patch on soldier A's sleeve → pull straight back out to the salute. Replaces the bridge + hard cut.** | 6.0 s / 150 f | 100 → 35 mm | f1–40: macro filled by the red hoist bar, drifting up 6 mm along the bar (matches the crayon move). f40–110: one continuous pull-back straight out of the sleeve along the line to the salute camera, lens widening to 35 mm, landing exactly on the locked salute frame. f110–150: holds that frame; gentle handheld blends in. No cut. |
 | `blocking_t1_patch_pullback_v1.blend` | Superseded by the one-shot. T1 bridge: red crayon → flag patch → pull-back | 3.0 s / 75 f | 100 mm | f1–40: low raking macro holding on the red hoist bar, 6 mm upward drift. f40–75: continuous pull-back with a slight rise to a medium close-up of the patch and shoulder. Slider, no handheld. |
 | `blocking_t1_salute_v1.blend` | T1 world: four soldiers salute the flag. Frame 1 is the composition the director locked. | 4.0 s / 100 f | 35 mm | From behind, three-quarter right, low (1.0 m), slow push-in of about 0.9 m, gentle handheld |
 | `blocking_t2_field_v1.blend` | T2 world: green crayon rows → crop rows | 4.0 s / 100 f | 35 mm | 0.30 m above the soil, looking across the rows, horizon 8% from the top edge, slow 0.6 m forward glide. Slider. |
@@ -26,6 +27,7 @@ The patch takes soldier A's colour. On screen in the salute shot, left to right:
 ## Run
 
 ```
+blender -b -P blocking_t1_patch_to_salute_v2.py
 blender -b -P blocking_t1_patch_to_salute_v1.py
 blender -b -P blocking_t1_patch_pullback_v1.py
 blender -b -P blocking_t1_salute_v1.py
@@ -35,6 +37,10 @@ blender -b -P blocking_t2_field_v1.py
 Each script rebuilds its `.blend` next to itself. `uae_set.py` is the shared module (set pieces, mannequins, poses, camera rig, outline look). The scripts were tested on Blender 4.5 LTS and 5.2. The shipped `.blend` files were saved from 4.5 and open in 5.x.
 
 ## Decisions and deviations
+
+- **v2 opening matches the director's patch reference** (black border on the left, red bar receding to the top, stripes far at top right). The border also sits where the dark crayon tip is in shot_1. For the reference to work the arm must hang straight, so the soldiers start at attention and raise the salute mid-pull-back.
+- **v2 salute raise:** the right forearm and upper arm of each soldier are separate objects. The upper arm pivots at the shoulder, the forearm at the elbow, eased f70–88 (0.7 s), all four in unison. The patch is parented to A's upper arm and rides up with it. The camera is 1.8 m away when the raise starts.
+- **v2 heads are already pitched up to the flag at attention**, so only the arms move.
 
 - **Salute composition is locked** (`SALUTE_CAM` / `SALUTE_AIM` / 35 mm in `uae_set.py`, frame 1 of the salute shot). The one-shot lands on it exactly at f110; checked numerically, head positions match to three decimals.
 - **One-shot patch: soldier A's RIGHT upper sleeve (the saluting arm), on the side facing the camera.** From behind-right his left arm is hidden by his body. The rule "left sleeve, verify against a reference" still applies to the old bridge file only.

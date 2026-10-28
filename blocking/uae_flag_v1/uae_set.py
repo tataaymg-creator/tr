@@ -103,7 +103,7 @@ def key_outlines(scene, cam, frames, constant=False):
             ob.modifiers['outline'].thickness = max(dist * per_px * ob['outline_px'], 1e-5)
             ob.keyframe_insert('modifiers["outline"].thickness', frame=f)
     for ob in obs:
-        set_interp(ob, 'CONSTANT' if constant else 'LINEAR')
+        set_interp(ob, 'CONSTANT' if constant else 'LINEAR', prefix='modifiers')
     scene.frame_set(scene.frame_start)
 
 
@@ -190,19 +190,35 @@ POSE_ATTENTION = dict(
 
 # Right hand at the right brow, elbow out to the side at shoulder height, head up to the flag.
 POSE_SALUTE = dict(POSE_ATTENTION, hand_r=(0.13, 0.10, 1.60), pole_r=(1.0, 0.25, -0.15), head_pitch=12.0)
+# At attention, already looking up at the flag (the pose the salute is raised from).
+POSE_ATTENTION_LOOK = dict(POSE_ATTENTION, head_pitch=12.0)
 
 L_UPPER_ARM, L_FOREARM, L_THIGH, L_SHIN = 0.29, 0.27, 0.44, 0.43
 R_UPPER_ARM = 0.05
 
 
-def build_figure(name, rgb, pose, loc=(0, 0, 0), yaw_deg=0.0, px=PX_FIGURE):
-    """Mannequin in its local frame (faces +Y, right = +X). Returns (object, joints in world space)."""
+def _upper_body(p):
+    """Upper body pivots at the hip. lean > 0 = forward (top toward +Y)."""
+    return (Matrix.Translation(Vector(p['hip'])) @ Matrix.Rotation(math.radians(p['yaw']), 4, 'Z')
+            @ Matrix.Rotation(math.radians(-p['lean']), 4, 'X') @ Matrix.Rotation(math.radians(p['roll']), 4, 'Y'))
+
+
+def arm_chain(pose, side):
+    """Shoulder, elbow, wrist of one arm in the figure's local frame."""
+    p = dict(POSE_ATTENTION, **pose)
+    sh = _upper_body(p) @ Vector(((1 if side == 'r' else -1) * 0.20, 0.0, 0.46))
+    elbow, wrist = solve_2bone(sh, p['hand_' + side], L_UPPER_ARM, L_FOREARM, p['pole_' + side])
+    return sh, elbow, wrist
+
+
+def build_figure(name, rgb, pose, loc=(0, 0, 0), yaw_deg=0.0, px=PX_FIGURE, split_arms=()):
+    """Mannequin in its local frame (faces +Y, right = +X). Returns (object, joints in world space).
+    Arms listed in split_arms ('r'/'l') are separate objects that can be animated: <name>_upperarm_<side>
+    pivots at the shoulder (child of the body), <name>_forearm_<side> pivots at the elbow (child of the upper arm)."""
     p = dict(POSE_ATTENTION, **pose)
     bm = bmesh.new()
     hip = Vector(p['hip'])
-    # Upper body pivots at the hip. lean > 0 = forward (top toward +Y).
-    up = (Matrix.Translation(hip) @ Matrix.Rotation(math.radians(p['yaw']), 4, 'Z')
-          @ Matrix.Rotation(math.radians(-p['lean']), 4, 'X') @ Matrix.Rotation(math.radians(p['roll']), 4, 'Y'))
+    up = _upper_body(p)
     j = {}
     # pelvis + torso
     add_ellipsoid(bm, hip, (0.17, 0.11, 0.11))
@@ -219,13 +235,21 @@ def build_figure(name, rgb, pose, loc=(0, 0, 0), yaw_deg=0.0, px=PX_FIGURE):
         add_ellipsoid(bm, (sx * 0.036, 0.092, 0.15), (0.014, 0.012, 0.012), hm, 8, 6)  # eye bumps
     j['head'] = hm @ Vector((0, 0.01, 0.13))
     # arms
-    for side, sx in (('r', 1), ('l', -1)):
-        sh = up @ Vector((sx * 0.20, 0.0, 0.46))
-        elbow, wrist = solve_2bone(sh, p['hand_' + side], L_UPPER_ARM, L_FOREARM, p['pole_' + side])
+    split = []
+    for side in ('r', 'l'):
+        sh, elbow, wrist = arm_chain(p, side)
+        j['shoulder_' + side], j['elbow_' + side], j['hand_' + side] = sh, elbow, wrist
+        if side in split_arms:
+            ua_bm, fa_bm = bmesh.new(), bmesh.new()
+            add_capsule(ua_bm, Vector(), elbow - sh, R_UPPER_ARM)
+            add_capsule(fa_bm, Vector(), wrist - elbow, 0.042)
+            add_ellipsoid(fa_bm, wrist - elbow, (0.045, 0.045, 0.045), segs=10, rings=6)
+            split.append((_new_object('%s_upperarm_%s' % (name, side), ua_bm),
+                          _new_object('%s_forearm_%s' % (name, side), fa_bm), sh, elbow))
+            continue
         add_capsule(bm, sh, elbow, R_UPPER_ARM)
         add_capsule(bm, elbow, wrist, 0.042)
         add_ellipsoid(bm, wrist, (0.045, 0.045, 0.045), segs=10, rings=6)
-        j['shoulder_' + side], j['elbow_' + side], j['hand_' + side] = sh, elbow, wrist
     # legs
     for side, sx in (('r', 1), ('l', -1)):
         hj = hip + Vector((sx * 0.095, 0.0, -0.03))
@@ -238,9 +262,30 @@ def build_figure(name, rgb, pose, loc=(0, 0, 0), yaw_deg=0.0, px=PX_FIGURE):
     ob.location = loc
     ob.rotation_euler = (0, 0, math.radians(yaw_deg))
     outline(ob, rgb, px)
+    for ua, fa, sh, elbow in split:
+        ua.parent, ua.location = ob, sh
+        fa.parent, fa.location = ua, elbow - sh
+        for part in (ua, fa):
+            part.rotation_mode = 'QUATERNION'
+            outline(part, rgb, px)
     bpy.context.view_layer.update()
     mw = ob.matrix_world
     return ob, {k: mw @ v for k, v in j.items()}
+
+
+def animate_arm(name, side, pose_a, pose_b, frame_a, frame_b):
+    """Key a split arm from pose_a (frame_a) to pose_b (frame_b), eased."""
+    sh, ea, wa = arm_chain(pose_a, side)
+    _, eb, wb = arm_chain(pose_b, side)
+    r_upper = (ea - sh).rotation_difference(eb - sh)
+    r_fore = (wa - ea).rotation_difference(r_upper.inverted() @ (wb - eb))
+    for part, q in (('upperarm', r_upper), ('forearm', r_fore)):
+        ob = bpy.data.objects['%s_%s_%s' % (name, part, side)]
+        ob.rotation_quaternion = (1.0, 0.0, 0.0, 0.0)
+        ob.keyframe_insert('rotation_quaternion', frame=frame_a)
+        ob.rotation_quaternion = q
+        ob.keyframe_insert('rotation_quaternion', frame=frame_b)
+        set_interp(ob, 'BEZIER', prefix='rotation')
 
 
 def sleeve_patch(name, rgb, joints, side='l', along=0.30, size=(0.085, 0.055), facing=None):
@@ -273,13 +318,19 @@ SALUTE_CAM = (3.6, -4.6, 1.0)
 SALUTE_AIM = (-1.4, 3.0, 2.4)
 
 
-def build_salute_set():
-    """Row of four saluting soldiers at Y = 0 facing +Y, flagpole, palms. Returns {name: joints}."""
+def build_salute_set(raise_frames=None):
+    """Row of four soldiers at Y = 0 facing +Y, flagpole, palms. Returns {name: joints}.
+    Default: all saluting. raise_frames=(f0, f1): they stand at attention and raise the salute
+    together between f0 and f1 (joints are returned in the attention pose)."""
     ground()
     joints = {}
     for name, col, x in (('soldier_D', COL_D, -1.5), ('soldier_C', COL_C, -0.5),
                          ('soldier_B', COL_B, 0.5), ('soldier_A', COL_A, 1.5)):
-        joints[name] = build_figure(name, col, POSE_SALUTE, loc=(x, 0.0, 0.0))[1]
+        if raise_frames is None:
+            joints[name] = build_figure(name, col, POSE_SALUTE, loc=(x, 0.0, 0.0))[1]
+        else:
+            joints[name] = build_figure(name, col, POSE_ATTENTION_LOOK, loc=(x, 0.0, 0.0), split_arms=('r',))[1]
+            animate_arm(name, 'r', POSE_ATTENTION_LOOK, POSE_SALUTE, *raise_frames)
     # Flagpole + flag (flag is a flat board; it flies toward +X so the camera sees it broad).
     pole = (-3.0, 9.0)
     bm = bmesh.new()
@@ -345,6 +396,14 @@ def key_rig(rig, frame, pos, aim):
     rig.rotation_euler = (aim - pos).to_track_quat('-Z', 'Y').to_euler('XYZ', prev)
     rig.keyframe_insert('location', frame=frame)
     rig.keyframe_insert('rotation_euler', frame=frame)
+
+
+def look_quat(pos, aim, up_hint=(0.0, 0.0, 1.0)):
+    """Camera orientation looking from pos at aim with screen-up as close as possible to up_hint."""
+    f = (Vector(aim) - Vector(pos)).normalized()
+    u = Vector(up_hint)
+    u = (u - f * u.dot(f)).normalized()
+    return Matrix((f.cross(u), u, -f)).transposed().to_quaternion()
 
 
 def handheld(cam, amp_m=0.015, amp_deg=0.3, period_s=1.5, seed=SEED, start=None, end=None, blend_in=0):
