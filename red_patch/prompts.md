@@ -1,0 +1,84 @@
+# Red stroke → stitched flag patch (storyboard 04 → 05)
+
+Assets (rename uploads to these names, or swap the handles):
+- `@shot_1` — real crayon macro, 1.64 s, 3840×2160, 25 fps
+- `@shot_1_last` — last frame of `@shot_1` (`red_patch/shot_1_last.png`)
+- `@stitch_macro` — frontal macro of vertical red satin-stitch columns
+- `@patch_reveal` — low raking macro of the red bar with black merrowed edge, green/white/black soft in the distance, warm sun
+
+---
+
+## OPTION A — all in Seedance (continues straight out of the real crayon shot)
+
+Edit: hard cut from the last frame of `@shot_1` to frame 1 of this clip. Start frame = `@shot_1_last`, end frame = `@patch_reveal`.
+
+```
+5-second 16:9 macro shot, one continuous camera move with no cuts: a red wax-crayon stroke on paper transforms in place into embroidered red thread on a flag patch, then the camera tilts up to reveal the patch is the UAE flag.
+The clip continues directly from live footage: frame 0 is @shot_1_last exactly.
+
+REFERENCES
+@shot_1_last — THE VERY FIRST FRAME OF THE CLIP. Low raking macro across white paper covered in red wax-crayon strokes, the blunt red crayon tip in soft focus at screen left. Take its angle, lens, focus and texture exactly.
+@shot_1 — motion and pace reference only: how slowly the crayon drags, how shallow the focus is. Take nothing else.
+@stitch_macro — the middle state: frontal macro of tight vertical columns of twisted red thread with pale backing fabric showing in thin gaps between columns. Take thread structure and scale only; ignore its brick-red tint.
+@patch_reveal — THE LAST FRAME OF THE CLIP. Take angle, framing, focus fall-off, black merrowed border, the soft green, white and black bands at the far end, and the deep crimson thread colour.
+
+LOOK
+Macro lens, very shallow depth of field, one focus plane that travels with the move. Clean modern digital cinema look, deep clean blacks, rich saturated crimson. Light begins soft and even like @shot_1 and turns into warm low golden sun raking from frame-top-right by the end, like @patch_reveal.
+
+THE RED
+One crimson for the whole clip — the deep crimson of @patch_reveal. The crayon wax, the thread and the flag bar are the same red.
+
+SHOTS
+0.0–0.7s — Exactly the angle of @shot_1_last, same lens, same focus. The crayon tip at screen left drags a short way along the paper at the same slow pace as @shot_1, then lifts and leaves frame left by 0.7s. Only paper and red wax remain. BACKGROUND: nothing but the stroked paper, soft at the top edge.
+0.7–2.2s — Continuous slow push-in, never stopping. The camera eases from the low raking angle to straight-on over the surface while rolling about 15° so the diagonal strokes become vertical. As it moves, the texture transforms in place: each wax streak thickens and twists into a strand of red thread, the strands gather into tight vertical satin-stitch columns, and the white paper between them becomes the pale backing fabric showing through the thin gaps. Stray fibres lift off the threads. By 2.2s the frame is @stitch_macro: frontal, columns edge to edge, in the deep crimson.
+2.2–2.7s — On @stitch_macro, a slow forward drift; the move barely slows. Fine fibres catch the light.
+2.7–5.0s — The camera tilts up and drops low across the surface, pulling back slightly, so the stitched plane falls into perspective and the columns turn into diagonal rows running away from camera. The black merrowed border slides in at the left edge, in focus. Warm low sun rakes in from frame-top-right and makes the thread glint. At the far end, out of focus, the green band appears top-right, then white, then black below it. The move eases to a smooth stop at 5.0s on exactly @patch_reveal.
+
+SOUND
+No music, no voice, no whooshes. 0.0–0.7s soft dry crayon-on-paper scratch, stopping when the crayon lifts. Then quiet room tone only.
+
+KEEP CONSISTENT
+Opens on exactly @shot_1_last, never on the stitches or the flag.
+One unbroken move: no cut, no dissolve, no flash, no blur-wipe.
+The crayon is gone by 0.7s and never returns; no hand ever appears.
+The transformation happens in place, on the same surface, under a moving camera.
+Same crimson from first to last frame.
+Ends on exactly @patch_reveal: black border left, red bar sharp in the foreground, green/white/black soft in the distance.
+No text, no logos, no extra objects.
+```
+
+---
+
+## OPTION B — Seedance only for the tilt; dissolve in the edit
+
+Start frame = `@stitch_macro`, end frame = `@patch_reveal`.
+
+```
+5-second 16:9 macro shot, one continuous camera move: from a frontal close-up of red embroidered thread, the camera tilts up across the surface to reveal it is the red bar of a stitched UAE flag patch.
+
+REFERENCES
+@stitch_macro — THE VERY FIRST FRAME OF THE CLIP. Frontal macro of tight vertical columns of twisted red thread with pale backing fabric showing in thin gaps. Take angle, scale and focus exactly; the thread colour becomes the deep crimson of @patch_reveal.
+@patch_reveal — THE LAST FRAME OF THE CLIP. Take angle, framing, focus fall-off, black merrowed border, the soft green, white and black bands at the far end, the warm sun and the crimson.
+
+LOOK
+Macro lens, very shallow depth of field, one focus plane that travels with the move. Clean modern digital cinema look, deep clean blacks, rich saturated crimson. Light begins soft and even and becomes warm low golden sun raking from frame-top-right.
+
+SHOTS
+0.0–1.0s — Exactly the angle of @stitch_macro. A slow forward drift over the vertical stitch columns, fibres catching the light. Columns fill the frame edge to edge.
+1.0–5.0s — Without stopping, the camera tilts up and drops low across the surface, pulling back slightly, so the stitched plane falls into perspective and the columns turn into diagonal rows running away from camera. The black merrowed border slides in at the left edge, in focus. Warm low sun rakes in from frame-top-right and makes the thread glint. At the far end, out of focus, the green band appears top-right, then white, then black below it. The move eases to a smooth stop at 5.0s on exactly @patch_reveal.
+
+SOUND
+No music, no voice, no effects. Quiet room tone only.
+
+KEEP CONSISTENT
+Opens on exactly @stitch_macro.
+One unbroken move, no cuts.
+Same crimson from first to last frame.
+Ends on exactly @patch_reveal: black border left, red bar sharp in the foreground, green/white/black soft in the distance.
+No hands, no text, no logos, no extra objects.
+```
+
+Edit for Option B:
+- Grade `@shot_1` out of its flat log look first, and match its red to the crimson of the generated clip.
+- Cross-dissolve 12 frames (0.48 s at 25 fps), from 1.16 s to the end of `@shot_1` at 1.64 s, into frame 0 of the Seedance clip.
+- The crayon strokes run diagonally and the stitches run vertically. If the dissolve reads as two textures crossing, rotate the first second of the Seedance clip about −15° (scale up about 110% to hide the corners) and ease it back to 0° by 1.0 s.
