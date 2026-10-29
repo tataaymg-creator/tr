@@ -4,7 +4,9 @@ Assets (rename uploads to these names, or swap the handles):
 - `@shot_1` — real crayon macro, 1.64 s, 3840×2160, 25 fps
 - `@shot_1_last` — last frame of `@shot_1` (`red_patch/shot_1_last.png`)
 - `@stitch_macro` — frontal macro of vertical red satin-stitch columns
-- `@patch_reveal` — low raking macro of the red bar with black merrowed edge, green/white/black soft in the distance, warm sun
+- `@patch_reveal` — low raking macro of the red bar with black merrowed edge, green/white/black soft in the distance, warm sun (Option A only)
+- `@uniform_ref` — studio reference of the desert-camo uniform with the flag patch on the upper sleeve (Option B)
+- `@sleeve_wide` — new wider still of the sleeve and shoulder with the patch (Option B, generate first)
 
 ---
 
@@ -49,35 +51,76 @@ No text, no logos, no extra objects.
 
 ---
 
-## OPTION B — Seedance only for the tilt; dissolve in the edit
+## OPTION B — Seedance only for the move; dissolve in the edit
 
-Start frame = `@stitch_macro`. `@patch_reveal` goes in as a reference image only, not in the end-frame slot.
+Assets for this option:
+- `@stitch_macro` — start frame
+- `@uniform_ref` — the uniform reference (two-panel studio image)
+- `@sleeve_wide` — the new wider still (generate it first with the prompt below); reference image only, not in the end-frame slot
+
+### Still prompt — `@sleeve_wide`
 
 ```
-6-second 16:9 macro shot, one continuous camera move: the camera travels up along columns of red embroidered thread, then tilts up across the surface to reveal it is the red bar of a stitched UAE flag patch, and keeps drifting for one more second.
+Photoreal 16:9 close-up of the right upper arm and shoulder of a soldier wearing the desert digital camouflage uniform of @uniform_ref, standing still, arm relaxed at the side.
 
 REFERENCES
-@stitch_macro — THE VERY FIRST FRAME OF THE CLIP. Frontal macro of tight vertical columns of twisted red thread with pale backing fabric showing in thin gaps. Take angle, scale and focus exactly; the thread colour becomes the deep crimson of @patch_reveal.
-@patch_reveal — the framing the camera reaches at 5.0s, not the last frame. Take angle, framing, focus fall-off, black merrowed border, the soft green, white and black bands at the far end, the warm sun and the crimson.
+@uniform_ref — the uniform only: desert digital camouflage pattern and colours, sleeve, shoulder seam, collar, chest pocket flap, and the flag patch position on the upper outer sleeve. Ignore the grey studio backdrop, the grey circle over the face, the boots and the flat studio light.
+@stitch_macro — the thread of the patch's red bar: tight vertical satin-stitch columns.
+
+CAMERA
+85mm, at the outer side of the arm, angled about 20° toward the front, slightly above shoulder height and looking a little down, so the collar and upper chest sit behind the shoulder.
+
+FRAMING
+The upper sleeve with the patch fills the left and centre of the frame. The patch sits just left of centre in the upper third, about one fifth of the frame width, square to camera and pin-sharp. The shoulder seam crosses near the top edge. Behind the shoulder, the collar fills the top-right corner with the neck out of frame; the chest pocket flap sits at the right edge, softly out of focus. Every edge of the frame cuts through fabric: every pixel is the uniform.
+
+THE PATCH
+Embroidered UAE flag, rectangular: vertical red bar on the left, green, white and black horizontal stripes to its right, black merrowed border all round. The red bar is vertical satin-stitch columns in deep crimson.
+
+LIGHT AND LOOK
+Warm low golden sun raking from frame-top-right, catching the thread and the ripstop weave, soft shadows in the fabric folds. Shallow depth of field. Clean modern digital cinema look, rich colour, deep clean blacks.
+
+No background, no sky, no room, no face, no skin, no hands, no rank insignia, no text.
+```
+
+### Video prompt — 6 s
+
+Start frame = `@stitch_macro`. `@uniform_ref` and `@sleeve_wide` go in as reference images only.
+
+```
+6-second 16:9 shot, one continuous camera move: the camera travels up a column of red embroidered thread, then pulls straight back to reveal it is the red bar of a UAE flag patch sewn on the upper sleeve of a desert-camouflage military uniform.
+
+REFERENCES
+@stitch_macro — THE VERY FIRST FRAME OF THE CLIP. Frontal macro of tight vertical columns of twisted red thread with pale backing fabric showing in thin gaps. Take angle, scale and focus exactly; the thread colour is deep crimson.
+@uniform_ref — the uniform only: desert digital camouflage pattern and colours, sleeve, shoulder seam, collar, chest pocket flap, and the flag patch position on the upper outer sleeve. Ignore the grey studio backdrop, the grey circle over the face, the boots and the flat studio light.
+@sleeve_wide — the framing the camera reaches at 5.0s, not the last frame. Take framing, angle, light and focus.
 
 LOOK
-Macro lens, very shallow depth of field, one focus plane that travels with the move. Clean modern digital cinema look, deep clean blacks, rich saturated crimson. Light begins soft and even and becomes warm low golden sun raking from frame-top-right.
+Macro at the start, very shallow depth of field, focus locked on the patch for the whole move. Clean modern digital cinema look, deep clean blacks, rich saturated crimson. Soft even light on the macro warms into low golden sun raking from frame-top-right as the sleeve appears, as in @sleeve_wide.
+
+THE PATCH
+Embroidered UAE flag, rectangular: vertical red bar on the screen-left side, green, white and black horizontal stripes to its right, black merrowed border all round. The satin-stitch columns of the red bar run vertically.
+
+FRAME RULE
+From the first frame to the last, every pixel is the uniform: thread, patch, camouflage fabric. The camera never sees past the uniform.
 
 SHOTS
-0.0–1.5s — Exactly the angle of @stitch_macro. The camera travels straight UP the frame, along the direction of the stitch columns, at a slow steady speed, so the columns slide downward through the frame like rails. Frontal angle unchanged, columns stay vertical and fill the frame edge to edge, fibres catching the light. The camera never stops.
-1.5–5.0s — Carrying the same upward momentum with no pause, the camera tilts up and drops low across the surface, pulling back slightly, so the stitched plane falls into perspective and the columns turn into diagonal rows running away from camera. The black merrowed border slides in at the left edge, in focus. Warm low sun rakes in from frame-top-right and makes the thread glint. At the far end, out of focus, the green band appears top-right, then white, then black below it. At 5.0s the frame matches @patch_reveal.
-5.0–6.0s — The camera does not stop: it keeps drifting very slowly forward along the red bar, decelerating, framing staying essentially @patch_reveal. Sun glints shift gently across the thread. Still moving on the last frame.
+0.0–1.5s — Exactly the angle of @stitch_macro. The camera travels straight UP the frame along the vertical stitch columns of the red bar, at a slow steady speed, so the columns slide downward through the frame like rails. Columns vertical, filling the frame edge to edge, fibres catching the light. The camera never stops.
+1.5–5.0s — Carrying the upward momentum with no pause, the move turns into a smooth continuous pull-back straight away from the patch. The reveal comes in this order: the black merrowed edge of the red bar at screen-left; the green, white and black stripes to its right; the whole patch; the camouflage ripstop weave around it; then the upper sleeve with the patch on the outer arm, the shoulder seam near the top edge, and the collar and chest pocket flap at screen-right behind the shoulder. During the pull-back the camera rises slightly and arcs about 20° toward the soldier's front, so the shoulder always has the collar and chest behind it. Focus stays on the patch the whole way. At 5.0s the frame matches @sleeve_wide.
+5.0–6.0s — The pull-back slows to a crawl and continues only a few millimetres; framing stays essentially @sleeve_wide, the patch sharp. The soldier stands still; only a faint breathing rise of the shoulder. Still moving on the last frame.
 
 SOUND
 No music, no voice, no effects. Quiet room tone only.
 
 KEEP CONSISTENT
 Opens on exactly @stitch_macro.
-First 1.5s the camera moves UP along the stitch columns, columns vertical, before any tilt.
+First 1.5s the camera moves UP along the stitch columns, before any pull-back.
 One unbroken move, no cuts, no stop at any point.
+Every frame is uniform only: no background, no sky, no room, no face, no skin, no hands.
+The patch is the same patch from macro to wide: red bar left, black merrowed border.
 Same crimson from first to last frame.
-@patch_reveal framing at 5.0s, then one more second of slow drift: black border left, red bar sharp in the foreground, green/white/black soft in the distance.
-No hands, no text, no logos, no extra objects.
+@sleeve_wide framing at 5.0s, then one more second of slow drift.
+The soldier never moves except breathing.
+No text, no rank insignia, no logos.
 ```
 
 Edit for Option B:
