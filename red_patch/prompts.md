@@ -6,7 +6,7 @@ Assets (rename uploads to these names, or swap the handles):
 - `@stitch_macro` — frontal macro of vertical red satin-stitch columns
 - `@patch_reveal` — low raking macro of the red bar with black merrowed edge, green/white/black soft in the distance, warm sun (Option A only)
 - `@uniform_ref` — studio reference of the desert-camo uniform with the flag patch on the upper sleeve (Option B)
-- `@sleeve_wide` — new wider still of the sleeve and shoulder with the patch (Option B, generate first)
+- `@sleeve_wide` — wider still of the sleeve with the patch (`red_patch/sleeve_wide.png`, v2 cropped 10% to remove background; Option B)
 
 ---
 
@@ -77,7 +77,7 @@ THE PATCH
 Embroidered UAE flag, rectangular: vertical red bar on the left, green, white and black horizontal stripes to its right, black merrowed border all round. The red bar is vertical satin-stitch columns in deep crimson.
 
 LIGHT AND LOOK
-Warm low golden sun from frame-left, slightly behind the arm, rim-lighting the top of the shoulder and catching the thread and the ripstop weave, soft shadows in the fabric folds. Shallow depth of field. Clean modern digital cinema look, rich colour, deep clean blacks.
+Warm low golden sun from frame-right, lighting the front of the sleeve and the chest, the back of the arm at frame-left falling into soft shadow, catching the thread and the ripstop weave. Shallow depth of field. Clean modern digital cinema look, rich colour, deep clean blacks.
 
 No background, no sky, no room, no face, no skin, no hands, no rank insignia, no text.
 ```
@@ -108,7 +108,7 @@ REFERENCES
 @sleeve_wide — the framing the camera reaches at 5.0s, not the last frame. Take framing, angle, light and focus.
 
 LOOK
-Macro at the start, very shallow depth of field, focus locked on the patch for the whole move. Clean modern digital cinema look, deep clean blacks, rich saturated crimson. Soft even light on the macro warms into low golden sun from frame-left, slightly behind the arm, as the sleeve appears, as in @sleeve_wide.
+Macro at the start, very shallow depth of field, focus locked on the patch for the whole move. Clean modern digital cinema look, deep clean blacks, rich saturated crimson. Soft even light on the macro warms into low golden sun from frame-right as the sleeve appears, the back of the arm at frame-left in soft shadow, as in @sleeve_wide.
 
 THE PATCH
 Embroidered UAE flag, rectangular: vertical red bar on the screen-left side, green, white and black horizontal stripes to its right, black merrowed border all round. The satin-stitch columns of the red bar run vertically.
@@ -118,8 +118,8 @@ From the first frame to the last, every pixel is the uniform: thread, patch, cam
 
 SHOTS
 0.0–1.5s — Exactly the angle of @stitch_macro. The camera travels straight UP the frame along the vertical stitch columns of the red bar, at a slow steady speed, so the columns slide downward through the frame like rails. Columns vertical, filling the frame edge to edge, fibres catching the light. The camera never stops.
-1.5–5.0s — Carrying the upward momentum with no pause, the move turns into a smooth continuous pull-back straight away from the patch. The reveal comes in this order: the black merrowed edge of the red bar at screen-left; the green, white and black stripes to its right; the whole patch; the camouflage ripstop weave around it; then the upper sleeve with the patch on the outer arm, the shoulder seam near the top edge, and the collar and chest pocket flap at screen-right behind the shoulder. During the pull-back the camera rises slightly and arcs about 20° toward the soldier's front, so the shoulder always has the collar and chest behind it. Focus stays on the patch the whole way. At 5.0s the frame matches @sleeve_wide.
-5.0–6.0s — The pull-back slows to a crawl and continues only a few millimetres; framing stays essentially @sleeve_wide, the patch sharp. The soldier stands still; only a faint breathing rise of the shoulder. Still moving on the last frame.
+1.5–5.0s — Carrying the upward momentum with no pause, the move turns into a smooth continuous pull-back straight away from the patch. The reveal comes in this order: the black merrowed edge of the red bar at screen-left; the green, white and black stripes to its right; the whole patch; the camouflage ripstop weave around it; then the upper sleeve with the patch on the outer arm, the shoulder seam curving across the top-right, and the chest pocket flap at the right edge. The camera pulls straight back on one axis, square to the patch the whole way, no arc, no tilt. Focus stays on the patch the whole way. At 5.0s the frame matches @sleeve_wide.
+5.0–6.0s — The pull-back slows to a crawl; the frame widens by no more than a few percent, framing stays essentially @sleeve_wide, every edge still on fabric, the patch sharp. The soldier stands still; only a faint breathing rise of the shoulder. Still moving on the last frame.
 
 SOUND
 No music, no voice, no effects. Quiet room tone only.
