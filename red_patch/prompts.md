@@ -51,30 +51,32 @@ No text, no logos, no extra objects.
 
 ## OPTION B — Seedance only for the tilt; dissolve in the edit
 
-Start frame = `@stitch_macro`, end frame = `@patch_reveal`.
+Start frame = `@stitch_macro`. `@patch_reveal` goes in as a reference image only, not in the end-frame slot.
 
 ```
-5-second 16:9 macro shot, one continuous camera move: from a frontal close-up of red embroidered thread, the camera tilts up across the surface to reveal it is the red bar of a stitched UAE flag patch.
+6-second 16:9 macro shot, one continuous camera move: the camera travels up along columns of red embroidered thread, then tilts up across the surface to reveal it is the red bar of a stitched UAE flag patch, and keeps drifting for one more second.
 
 REFERENCES
 @stitch_macro — THE VERY FIRST FRAME OF THE CLIP. Frontal macro of tight vertical columns of twisted red thread with pale backing fabric showing in thin gaps. Take angle, scale and focus exactly; the thread colour becomes the deep crimson of @patch_reveal.
-@patch_reveal — THE LAST FRAME OF THE CLIP. Take angle, framing, focus fall-off, black merrowed border, the soft green, white and black bands at the far end, the warm sun and the crimson.
+@patch_reveal — the framing the camera reaches at 5.0s, not the last frame. Take angle, framing, focus fall-off, black merrowed border, the soft green, white and black bands at the far end, the warm sun and the crimson.
 
 LOOK
 Macro lens, very shallow depth of field, one focus plane that travels with the move. Clean modern digital cinema look, deep clean blacks, rich saturated crimson. Light begins soft and even and becomes warm low golden sun raking from frame-top-right.
 
 SHOTS
-0.0–1.0s — Exactly the angle of @stitch_macro. A slow forward drift over the vertical stitch columns, fibres catching the light. Columns fill the frame edge to edge.
-1.0–5.0s — Without stopping, the camera tilts up and drops low across the surface, pulling back slightly, so the stitched plane falls into perspective and the columns turn into diagonal rows running away from camera. The black merrowed border slides in at the left edge, in focus. Warm low sun rakes in from frame-top-right and makes the thread glint. At the far end, out of focus, the green band appears top-right, then white, then black below it. The move eases to a smooth stop at 5.0s on exactly @patch_reveal.
+0.0–1.5s — Exactly the angle of @stitch_macro. The camera travels straight UP the frame, along the direction of the stitch columns, at a slow steady speed, so the columns slide downward through the frame like rails. Frontal angle unchanged, columns stay vertical and fill the frame edge to edge, fibres catching the light. The camera never stops.
+1.5–5.0s — Carrying the same upward momentum with no pause, the camera tilts up and drops low across the surface, pulling back slightly, so the stitched plane falls into perspective and the columns turn into diagonal rows running away from camera. The black merrowed border slides in at the left edge, in focus. Warm low sun rakes in from frame-top-right and makes the thread glint. At the far end, out of focus, the green band appears top-right, then white, then black below it. At 5.0s the frame matches @patch_reveal.
+5.0–6.0s — The camera does not stop: it keeps drifting very slowly forward along the red bar, decelerating, framing staying essentially @patch_reveal. Sun glints shift gently across the thread. Still moving on the last frame.
 
 SOUND
 No music, no voice, no effects. Quiet room tone only.
 
 KEEP CONSISTENT
 Opens on exactly @stitch_macro.
-One unbroken move, no cuts.
+First 1.5s the camera moves UP along the stitch columns, columns vertical, before any tilt.
+One unbroken move, no cuts, no stop at any point.
 Same crimson from first to last frame.
-Ends on exactly @patch_reveal: black border left, red bar sharp in the foreground, green/white/black soft in the distance.
+@patch_reveal framing at 5.0s, then one more second of slow drift: black border left, red bar sharp in the foreground, green/white/black soft in the distance.
 No hands, no text, no logos, no extra objects.
 ```
 
