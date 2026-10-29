@@ -77,9 +77,22 @@ THE PATCH
 Embroidered UAE flag, rectangular: vertical red bar on the left, green, white and black horizontal stripes to its right, black merrowed border all round. The red bar is vertical satin-stitch columns in deep crimson.
 
 LIGHT AND LOOK
-Warm low golden sun raking from frame-top-right, catching the thread and the ripstop weave, soft shadows in the fabric folds. Shallow depth of field. Clean modern digital cinema look, rich colour, deep clean blacks.
+Warm low golden sun from frame-left, slightly behind the arm, rim-lighting the top of the shoulder and catching the thread and the ripstop weave, soft shadows in the fabric folds. Shallow depth of field. Clean modern digital cinema look, rich colour, deep clean blacks.
 
 No background, no sky, no room, no face, no skin, no hands, no rank insignia, no text.
+```
+
+### Edit prompt — `@sleeve_wide` fix (v1 shows background in the corners)
+
+Use the v1 still as the input image.
+
+```
+Edit @sleeve_wide: keep the same soldier, uniform, camouflage pattern, patch, colours and warm light. Only the framing changes: the camera is about 20% closer to the arm, so the uniform fills the whole frame.
+
+FRAMING
+The upper sleeve fills the left half of the frame, its outer edge running past the left frame edge. The top of the shoulder runs past the top edge of the frame; the shoulder's outline is never seen against anything. The collar fills the top-right corner and runs past the top and right edges. The chest pocket flap with the tan name tape sits at the right, softly out of focus. The patch stays whole and pin-sharp, its centre about one third from the left and just above the middle, about 30% of the frame width.
+
+Every edge and every corner of the frame cuts through uniform fabric. No background, no sky, no wall, no blur of a location in any corner. No face, neck, skin, hands, rank insignia or text.
 ```
 
 ### Video prompt — 6 s
@@ -95,7 +108,7 @@ REFERENCES
 @sleeve_wide — the framing the camera reaches at 5.0s, not the last frame. Take framing, angle, light and focus.
 
 LOOK
-Macro at the start, very shallow depth of field, focus locked on the patch for the whole move. Clean modern digital cinema look, deep clean blacks, rich saturated crimson. Soft even light on the macro warms into low golden sun raking from frame-top-right as the sleeve appears, as in @sleeve_wide.
+Macro at the start, very shallow depth of field, focus locked on the patch for the whole move. Clean modern digital cinema look, deep clean blacks, rich saturated crimson. Soft even light on the macro warms into low golden sun from frame-left, slightly behind the arm, as the sleeve appears, as in @sleeve_wide.
 
 THE PATCH
 Embroidered UAE flag, rectangular: vertical red bar on the screen-left side, green, white and black horizontal stripes to its right, black merrowed border all round. The satin-stitch columns of the red bar run vertically.
