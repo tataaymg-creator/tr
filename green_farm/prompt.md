@@ -1,5 +1,33 @@
 # Green — vegetable rows and date palms → soil detail (storyboard 08)
 
+# Still prompt — new `@farm_rows` with true greens
+
+Optional composition reference: the old still as `@farm_rows_v1` (composition only, not colour).
+
+```
+Photoreal 16:9 wide shot of a thriving vegetable farm in the UAE desert at sunrise, long rows of healthy cabbage running away from camera to a low horizon, a grove of tall date palms beside the field, the sun just rising behind the palms.
+
+REFERENCE
+@farm_rows_v1 — composition only: rows converging to a vanishing point at frame-left, the grove of date palms filling the right half, the sun glowing through the palms at top-right, low camera. Ignore its colours: no teal, no haze, no dry leaves.
+
+CAMERA
+24mm, very low, about 60 cm above the sand, standing in the sand furrow between two rows, looking straight down the rows. Deep focus from the nearest leaves to the palms.
+
+THE FIELD
+Six to eight long, perfectly straight, parallel rows of cabbage, every plant full, round and healthy: broad leaves in rich natural chlorophyll green — fresh leaf green on the outer leaves, bright lime-green hearts — waxy surfaces catching the light. Narrow furrows of pale golden sand between the rows, darker and damp along a thin black drip-irrigation line at the base of each row. No dry, yellow, brown or fallen leaves anywhere.
+
+THE PALMS
+A dense grove of tall date palms in neat lines at frame-right, deep green fronds, warm-brown trunks, a raised sand bank between field and grove.
+
+LIGHT AND COLOUR
+Low golden sunrise from behind the palms at top-right: warm rim light on the leaf edges, long soft shadows across the furrows toward camera, a few sunbeams through the fronds. Clear soft blue-to-peach sky. Clean modern digital cinema look, punchy contrast, deep clean shadows. The greens are the strongest colour in the frame: saturated, natural, true green — never teal, never blue-green, never olive, never washed out. Sand warm pale gold, never pink.
+
+No people, no hands, no animals, no vehicles, no buildings, no greenhouses, no text, no logos.
+```
+
+---
+
+
 Start frame = `@farm_rows` (the cabbage rows / date palm still). Image-to-video, 5 s, 16:9, 1080p.
 
 ```
